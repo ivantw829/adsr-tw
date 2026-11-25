@@ -1,0 +1,23 @@
+{
+  "name": "捍衛全台學權行動 ADSR",
+  "short_name": "ADSR",
+  "description": "ADSR 捍衛全台學權行動，致力於學生權益、教育改革、反對威權，推動台灣學生運動。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090b10",
+  "theme_color": "#dc2626",
+  "lang": "zh-TW",
+  "icons": [
+    {
+      "src": "/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

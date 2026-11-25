@@ -653,3 +653,27 @@ export const BYLAW_FORMS: BylawFormSummary[] = [
     ],
   },
 ];
+
+export interface PresidentTerm {
+  term: string;
+  period: string;
+  current?: boolean;
+  members: { marker: string; name: string }[];
+}
+
+export const PRESIDENT_TERMS: PresidentTerm[] = [
+  {
+    term: '第一屆社長',
+    period: '2025–2026',
+    members: [{ marker: '一、', name: '蔡承祐' }],
+  },
+  {
+    term: '第二屆社長',
+    period: '2026–2028',
+    current: true,
+    members: [
+      { marker: '一、', name: '賴奕帆' },
+      { marker: '二、', name: '蔡承祐' },
+    ],
+  },
+];

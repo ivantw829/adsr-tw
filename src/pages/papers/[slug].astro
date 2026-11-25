@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { withBase, toAbsoluteUrl } from '@/utils/url';
+import { buildArticleJsonLd } from '@/utils/seo';
 import {
   getCategoryColor,
   normalizeCategory,
@@ -30,37 +31,49 @@ const { Content } = await render(paper);
 
 const cat = normalizeCategory(paper.data.category);
 const color = getCategoryColor(cat);
-const readMins = estimateReadingMinutes(paper.body ?? '');
+const rawBody = paper.body ?? '';
+const readMins = estimateReadingMinutes(rawBody);
+const wordCount = rawBody.replace(/\s+/g, '').length;
 const isoDate = formatDateISO(paper.data.date);
+const isoModifiedDate = paper.data.updatedDate ? formatDateISO(paper.data.updatedDate) : undefined;
+const articlePath = `/papers/${paper.id}/`;
+const articleUrl = toAbsoluteUrl(articlePath, Astro.site);
+const ogImagePath = paper.data.thumbnail ?? '/og/papers.png';
+const resolvedOgImage = toAbsoluteUrl(ogImagePath, Astro.site);
 
-const articleJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: paper.data.title,
+const articleJsonLd = buildArticleJsonLd({
+  title: paper.data.title,
   description: paper.data.description,
+  url: articleUrl,
   datePublished: isoDate,
-  author: {
-    '@type': 'Organization',
-    name: paper.data.author,
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: '捍衛全台學權行動 ADSR',
-    logo: {
-      '@type': 'ImageObject',
-      url: toAbsoluteUrl('/assets/logo360.png', Astro.site),
-    },
-  },
-  image: paper.data.thumbnail ? [paper.data.thumbnail] : [toAbsoluteUrl('/assets/logo360.png', Astro.site)],
-  inLanguage: 'zh-TW',
-};
+  dateModified: isoModifiedDate,
+  author: paper.data.author,
+  section: cat,
+  tags: paper.data.tags,
+  imageUrl: resolvedOgImage,
+  wordCount,
+  site: Astro.site,
+});
 ---
 
 <BaseLayout
   title={`${paper.data.title}｜倡議文章｜捍衛全台學權行動 ADSR`}
   description={paper.data.description}
-  ogImage={paper.data.thumbnail ?? '/assets/logo360.png'}
+  ogImage={ogImagePath}
+  ogImageAlt={`${paper.data.title}｜捍衛全台學權行動 ADSR`}
   ogType="article"
+  articleMeta={{
+    publishedTime: isoDate,
+    modifiedTime: isoModifiedDate,
+    author: paper.data.author,
+    section: cat,
+    tags: paper.data.tags,
+  }}
+  breadcrumbs={[
+    { name: '首頁', href: '/' },
+    { name: '倡議文章', href: '/papers/' },
+    { name: paper.data.title, href: articlePath },
+  ]}
   jsonLd={articleJsonLd}
 >
   <article class="mx-auto max-w-3xl px-4 pt-10 pb-16 sm:px-6 lg:px-8">

@@ -6,7 +6,7 @@ export interface LinkItem {
   external: boolean;
   download?: string;
   accent: string;
-  icon: 'bylaws' | 'form' | 'facebook' | 'instagram' | 'threads';
+  icon: 'bylaws' | 'form' | 'email' | 'facebook' | 'instagram' | 'threads';
 }
 
 export const OFFICIAL_LINKS: LinkItem[] = [
@@ -55,5 +55,14 @@ export const OFFICIAL_LINKS: LinkItem[] = [
     external: true,
     accent: '#1877f2',
     icon: 'facebook',
+  },
+  {
+    title: '聯絡信箱',
+    handle: 'info@asdtw.org',
+    description: '媒體採訪、活動合作、學權申訴或任何建議，歡迎透過電子郵件與我們聯繫。',
+    href: 'mailto:info@asdtw.org',
+    external: false,
+    accent: '#f59e0b',
+    icon: 'email',
   },
 ];

@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import eventsData from '@/data/events.json';
 import { getCategoryStyle, normalizeCategory } from '@/utils/categories';
+import { toAbsoluteUrl } from '@/utils/url';
+import { buildWebPageJsonLd } from '@/utils/seo';
 
 const events = [...eventsData].sort((a, b) => b.date.localeCompare(a.date));
 
@@ -12,11 +14,42 @@ const categoryCounts = events.reduce<Record<string, number>>((acc, item) => {
 }, {});
 
 const categories = Object.keys(categoryCounts);
+
+const pageTitle = '行動紀實｜捍衛全台學權行動 ADSR';
+const pageDescription =
+  'ADSR 捍衛全台學權行動的歷次活動與抗爭紀實，包含教育部記者會、靜坐抗議、全國學生座談會與跨校學權行動。';
+const pageUrl = toAbsoluteUrl('/events/', Astro.site);
+
+const eventsJsonLd = buildWebPageJsonLd({
+  type: 'CollectionPage',
+  name: pageTitle,
+  description: pageDescription,
+  url: pageUrl,
+  site: Astro.site,
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: events.length,
+    itemListElement: events.map((ev, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: ev.title,
+      description: ev.summary,
+      ...(ev.link ? { url: ev.link } : {}),
+    })),
+  },
+});
 ---
 
 <BaseLayout
-  title="行動紀實｜捍衛全台學權行動 ADSR"
-  description="ADSR 捍衛全台學權行動的歷次活動與抗爭紀實，包含教育部記者會、靜坐抗議、全國學生座談會與跨校學權行動。"
+  title={pageTitle}
+  description={pageDescription}
+  ogImage="/og/events.png"
+  ogImageAlt="行動紀實｜捍衛全台學權行動 ADSR — 和平示威、記者會、靜坐抗議與跨校學權行動"
+  breadcrumbs={[
+    { name: '首頁', href: '/' },
+    { name: '行動紀實', href: '/events/' },
+  ]}
+  jsonLd={eventsJsonLd}
 >
   <section class="relative border-b border-white/10 bg-grid-pattern py-16">
     <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">

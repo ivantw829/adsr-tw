@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { withBase } from '@/utils/url';
+import { withBase, toAbsoluteUrl } from '@/utils/url';
+import { buildWebPageJsonLd } from '@/utils/seo';
 import {
   getCategoryColor,
   normalizeCategory,
@@ -20,11 +21,45 @@ const categoryCounts = papers.reduce<Record<string, number>>((acc, paper) => {
 }, {});
 
 const categories = Object.keys(categoryCounts);
+
+const pageTitle = '倡議文章｜學生權益、教育改革｜捍衛全台學權行動 ADSR';
+const pageDescription =
+  'ADSR 捍衛全台學權行動的所有倡議文章，聚焦學生權益、教育改革、反威權與台灣學生運動，持續更新，推動學權進步。';
+const pageUrl = toAbsoluteUrl('/papers/', Astro.site);
+
+const papersJsonLd = buildWebPageJsonLd({
+  type: 'CollectionPage',
+  name: pageTitle,
+  description: pageDescription,
+  url: pageUrl,
+  site: Astro.site,
+  ...(papers.length > 0
+    ? {
+        mainEntity: {
+          '@type': 'ItemList',
+          numberOfItems: papers.length,
+          itemListElement: papers.map((paper, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: paper.data.title,
+            url: toAbsoluteUrl(`/papers/${paper.id}/`, Astro.site),
+          })),
+        },
+      }
+    : {}),
+});
 ---
 
 <BaseLayout
-  title="倡議文章｜學生權益、教育改革｜捍衛全台學權行動 ADSR"
-  description="ADSR 捍衛全台學權行動的所有倡議文章，聚焦學生權益、教育改革、反威權與台灣學生運動，持續更新，推動學權進步。"
+  title={pageTitle}
+  description={pageDescription}
+  ogImage="/og/papers.png"
+  ogImageAlt="倡議文章｜捍衛全台學權行動 ADSR — 台灣教育政策、校園權益與學生自主議題論述"
+  breadcrumbs={[
+    { name: '首頁', href: '/' },
+    { name: '倡議文章', href: '/papers/' },
+  ]}
+  jsonLd={papersJsonLd}
 >
   <section class="border-b border-white/10 bg-grid-pattern py-16">
     <div class="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">

@@ -1,12 +1,31 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { OFFICIAL_LINKS } from '@/data/links';
-import { withBase } from '@/utils/url';
+import { withBase, toAbsoluteUrl } from '@/utils/url';
+import { buildWebPageJsonLd } from '@/utils/seo';
+
+const pageTitle = '相關連結｜捍衛全台學權行動 ADSR';
+const pageDescription =
+  'ADSR 捍衛全台學權行動官方連結中心 — 組織章程、聯絡信箱、Instagram、Threads 與 Facebook，一起守護學生權益！';
+const linksJsonLd = buildWebPageJsonLd({
+  type: 'ProfilePage',
+  name: pageTitle,
+  description: pageDescription,
+  url: toAbsoluteUrl('/links/', Astro.site),
+  site: Astro.site,
+});
 ---
 
 <BaseLayout
-  title="相關連結｜捍衛全台學權行動 ADSR"
-  description="ADSR 捍衛全台學權行動官方連結中心 — 組織章程、Instagram、Threads 與 Facebook，一起守護學生權益！"
+  title={pageTitle}
+  description={pageDescription}
+  ogImage="/og/links.png"
+  ogImageAlt="相關連結｜捍衛全台學權行動 ADSR — 官方聯絡信箱、Instagram、Threads、Facebook 與組織資源"
+  breadcrumbs={[
+    { name: '首頁', href: '/' },
+    { name: '相關連結', href: '/links/' },
+  ]}
+  jsonLd={linksJsonLd}
 >
   <section class="relative overflow-hidden bg-grid-pattern py-20">
     <div
@@ -18,10 +37,11 @@ import { withBase } from '@/utils/url';
     <div class="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
       <div class="text-center">
         <img
-          src={withBase('/assets/logo.png')}
+          src={withBase('/assets/logo360.png')}
           alt="ADSR Logo"
           width="76"
           height="76"
+          decoding="async"
           class="mx-auto mb-5 h-19 w-19 drop-shadow-[0_0_20px_rgba(220,38,38,0.45)]"
         />
         <p class="font-[Montserrat] text-xs font-bold uppercase tracking-[0.2em] text-red-500">OFFICIAL CHANNELS</p>
@@ -34,6 +54,7 @@ import { withBase } from '@/utils/url';
       <div class="mt-12 grid gap-5 sm:grid-cols-2">
         {
           OFFICIAL_LINKS.map((item) => {
+            const isMailto = item.href.startsWith('mailto:');
             const resolvedHref = item.external ? item.href : withBase(item.href);
             return (
               <a
@@ -50,7 +71,7 @@ import { withBase } from '@/utils/url';
                       {item.handle}
                     </span>
                     <span class="inline-flex items-center gap-1 rounded-full bg-white/5 px-2.5 py-0.5 text-[11px] font-medium text-gray-300">
-                      {item.download ? '檔案下載' : item.external ? '外部連結' : '站內頁面'}
+                      {item.download ? '檔案下載' : isMailto ? '電子郵件' : item.external ? '外部連結' : '站內頁面'}
                     </span>
                   </div>
 
@@ -62,7 +83,7 @@ import { withBase } from '@/utils/url';
                 </div>
 
                 <div class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-red-400">
-                  <span>{item.download ? '立即下載 (.odt)' : item.external ? '前往頁面' : '閱讀內容'}</span>
+                  <span>{item.download ? '立即下載 (.odt)' : isMailto ? '寄送郵件' : item.external ? '前往頁面' : '閱讀內容'}</span>
                   <svg
                     class="h-4 w-4 transition-transform group-hover:translate-x-1"
                     fill="none"

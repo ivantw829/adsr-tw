@@ -3,7 +3,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { withBase } from '@/utils/url';
 ---
 
-<BaseLayout title="找不到頁面 (404)｜捍衛全台學權行動 ADSR">
+<BaseLayout
+  title="找不到頁面 (404)｜捍衛全台學權行動 ADSR"
+  description="找不到你造訪的頁面，請返回捍衛全台學權行動 ADSR 首頁或瀏覽最新倡議文章與行動紀實。"
+  noindex={true}
+>
   <section class="flex min-h-[70vh] items-center justify-center px-4 py-20 text-center">
     <div class="max-w-md">
       <p class="font-[Montserrat] text-7xl font-black text-red-600 sm:text-8xl">404</p>

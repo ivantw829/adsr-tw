@@ -21,10 +21,11 @@ const currentPath = Astro.url.pathname;
       aria-label="ADSR 首頁"
     >
       <img
-        src={withBase('/assets/logo.ico')}
+        src={withBase('/assets/logo360.png')}
         alt="ADSR 標誌"
         width="32"
         height="32"
+        decoding="async"
         class="h-8 w-8 rounded-md transition-transform duration-300 group-hover:scale-110"
       />
       <span class="font-[Montserrat] text-xl font-extrabold tracking-widest text-red-500">ADSR</span>

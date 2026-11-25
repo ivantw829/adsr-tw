@@ -1,12 +1,32 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { BYLAW_DOCUMENTS, BYLAW_FORMS } from '@/data/bylaws';
-import { withBase } from '@/utils/url';
+import { BYLAW_DOCUMENTS, BYLAW_FORMS, PRESIDENT_TERMS } from '@/data/bylaws';
+import { withBase, toAbsoluteUrl } from '@/utils/url';
+import { buildWebPageJsonLd } from '@/utils/seo';
+
+const pageTitle = '組織章程與紀律規章｜捍衛全台學權行動 ADSR';
+const pageDescription =
+  '捍衛全台學權行動 ADSR 社團章程與紀律規章（2026 年 9 月 13 日會員大會訂定），詳列總則、社員權利義務、雙社長制、社員代表會、社員大會、經費管理與紀律程序。';
+const bylawsJsonLd = buildWebPageJsonLd({
+  type: 'WebPage',
+  name: pageTitle,
+  description: pageDescription,
+  url: toAbsoluteUrl('/bylaws/', Astro.site),
+  dateModified: '2026-09-13',
+  site: Astro.site,
+});
 ---
 
 <BaseLayout
-  title="組織章程與紀律規章｜捍衛全台學權行動 ADSR"
-  description="捍衛全台學權行動 ADSR 社團章程與紀律規章（2026 年 9 月 13 日會員大會訂定），詳列總則、社員權利義務、雙社長制、社員代表會、社員大會、經費管理與紀律程序。"
+  title={pageTitle}
+  description={pageDescription}
+  ogImage="/og/bylaws.png"
+  ogImageAlt="組織章程與紀律規章｜捍衛全台學權行動 ADSR（2026 年 09 月 13 日會員大會訂定）"
+  breadcrumbs={[
+    { name: '首頁', href: '/' },
+    { name: '組織章程與紀律規章', href: '/bylaws/' },
+  ]}
+  jsonLd={bylawsJsonLd}
 >
   <section class="border-b border-white/10 bg-grid-pattern py-16">
     <div class="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
@@ -25,6 +45,12 @@ import { withBase } from '@/utils/url';
 
       <!-- Quick Jump Buttons -->
       <div class="mt-7 flex flex-wrap justify-center gap-2.5">
+        <a
+          href="#presidents"
+          class="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold text-gray-200 transition hover:border-red-500/50 hover:text-white"
+        >
+          歷屆社長
+        </a>
         <a
           href="#charter"
           class="rounded-xl bg-red-600 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-500"
@@ -64,6 +90,14 @@ import { withBase } from '@/utils/url';
         <nav aria-label="規章目錄" class="glass-panel max-h-[calc(100vh-8rem)] overflow-y-auto rounded-2xl p-5">
           <h2 class="text-xs font-bold uppercase tracking-widest text-red-400">規章目錄</h2>
           <div class="mt-4 space-y-5">
+            <div class="border-b border-white/10 pb-3">
+              <a
+                href="#presidents"
+                class="block text-sm font-extrabold text-white transition hover:text-red-400"
+              >
+                歷屆社長
+              </a>
+            </div>
             {
               BYLAW_DOCUMENTS.map((doc) => (
                 <div>
@@ -115,6 +149,50 @@ import { withBase } from '@/utils/url';
 
       <!-- Main Documents -->
       <div class="space-y-16">
+        <!-- Presidents History -->
+        <section id="presidents" class="scroll-mt-24 space-y-6">
+          <div>
+            <p class="font-[Montserrat] text-xs font-bold uppercase tracking-widest text-red-500">LEADERSHIP</p>
+            <h2 class="mt-1.5 text-2xl font-black text-white">歷屆社長</h2>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            {
+              PRESIDENT_TERMS.map((item) => (
+                <article
+                  class:list={[
+                    'glass-panel rounded-2xl p-6',
+                    item.current && 'border-red-500/35 bg-gradient-to-br from-red-950/25 to-[#101522]',
+                  ]}
+                >
+                  <div class="flex items-center justify-between gap-2">
+                    <h3 class="text-lg font-bold text-white">
+                      {item.term}
+                      <span class="ml-1.5 font-[Montserrat] text-sm font-semibold text-gray-400">
+                        （{item.period}）
+                      </span>
+                    </h3>
+                    {item.current && (
+                      <span class="rounded-full border border-red-500/40 bg-red-600/20 px-2.5 py-0.5 text-[11px] font-bold text-red-300">
+                        現任
+                      </span>
+                    )}
+                  </div>
+
+                  <ul class="mt-4 space-y-2 text-sm text-gray-200">
+                    {item.members.map((member) => (
+                      <li class="flex items-center gap-1.5">
+                        <span class="font-semibold text-red-400">{member.marker}</span>
+                        <span class="font-medium text-white">{member.name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              ))
+            }
+          </div>
+        </section>
+
         {
           BYLAW_DOCUMENTS.map((doc) => (
             <section id={doc.id} class="scroll-mt-24 space-y-10">
