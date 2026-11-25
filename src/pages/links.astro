@@ -40,6 +40,7 @@ import { withBase } from '@/utils/url';
                 href={resolvedHref}
                 target={item.external ? '_blank' : undefined}
                 rel={item.external ? 'noopener noreferrer' : undefined}
+                download={item.download}
                 class="glass-panel glass-panel-hover group flex flex-col justify-between rounded-2xl p-6"
                 style={`border-top: 3px solid ${item.accent};`}
               >
@@ -49,7 +50,7 @@ import { withBase } from '@/utils/url';
                       {item.handle}
                     </span>
                     <span class="inline-flex items-center gap-1 rounded-full bg-white/5 px-2.5 py-0.5 text-[11px] font-medium text-gray-300">
-                      {item.external ? '外部連結' : '站內頁面'}
+                      {item.download ? '檔案下載' : item.external ? '外部連結' : '站內頁面'}
                     </span>
                   </div>
 
@@ -61,7 +62,7 @@ import { withBase } from '@/utils/url';
                 </div>
 
                 <div class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-red-400">
-                  <span>{item.external ? '前往頁面' : '閱讀內容'}</span>
+                  <span>{item.download ? '立即下載 (.odt)' : item.external ? '前往頁面' : '閱讀內容'}</span>
                   <svg
                     class="h-4 w-4 transition-transform group-hover:translate-x-1"
                     fill="none"

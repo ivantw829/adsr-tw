@@ -611,6 +611,8 @@ export interface BylawFormSummary {
   title: string;
   purpose: string;
   fields: string[];
+  downloadHref?: string;
+  downloadFilename?: string;
 }
 
 export const BYLAW_FORMS: BylawFormSummary[] = [
@@ -622,6 +624,8 @@ export const BYLAW_FORMS: BylawFormSummary[] = [
       '每週可投入社團時長、能否參與線下會議／集會遊行',
       '自我簡介（約 100 字）、主要關注議題、過往倡議經歷或輔助審查資料',
     ],
+    downloadHref: '/files/adsr-membership-application.odt',
+    downloadFilename: '捍衛全台學權行動入社申請表.odt',
   },
   {
     title: '社員放棄社籍聲明書',

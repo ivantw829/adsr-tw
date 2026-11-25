@@ -4,11 +4,22 @@ export interface LinkItem {
   description: string;
   href: string;
   external: boolean;
+  download?: string;
   accent: string;
-  icon: 'bylaws' | 'facebook' | 'instagram' | 'threads';
+  icon: 'bylaws' | 'form' | 'facebook' | 'instagram' | 'threads';
 }
 
 export const OFFICIAL_LINKS: LinkItem[] = [
+  {
+    title: '入社申請表（下載）',
+    handle: 'Membership Application (.odt)',
+    description: '認同 ADSR 理念者，歡迎下載入社申請表填寫後向社長或社員代表遞交申請入社。',
+    href: '/files/adsr-membership-application.odt',
+    external: false,
+    download: '捍衛全台學權行動入社申請表.odt',
+    accent: '#ef4444',
+    icon: 'form',
+  },
   {
     title: '組織章程與紀律規章',
     handle: 'ADSR Charter & Rules',
