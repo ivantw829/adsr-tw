@@ -1,108 +1,212 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { BYLAWS_CHAPTERS } from '@/data/bylaws';
+import { BYLAW_DOCUMENTS, BYLAW_FORMS } from '@/data/bylaws';
 ---
 
 <BaseLayout
-  title="組織章程｜ADSR 共識大會｜捍衛全台學權行動 ADSR"
-  description="ADSR 捍衛全台學權行動共識大會章程與組織規範，詳列組織架構、權限分工、團隊規範、禁止事項、經費管理與財務制度。"
+  title="組織章程與紀律規章｜捍衛全台學權行動 ADSR"
+  description="捍衛全台學權行動 ADSR 社團章程與紀律規章（2026 年 9 月 13 日會員大會訂定），詳列總則、社員權利義務、雙社長制、社員代表會、社員大會、經費管理與紀律程序。"
 >
   <section class="border-b border-white/10 bg-grid-pattern py-16">
     <div class="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
-      <p class="font-[Montserrat] text-xs font-bold uppercase tracking-[0.2em] text-red-500">ORGANIZATION BYLAWS</p>
-      <h1 class="mt-2 text-3xl font-black text-white sm:text-5xl">ADSR 共識大會組織章程</h1>
-      <p class="mx-auto mt-4 max-w-2xl text-base text-gray-400">
-        明定捍衛全台學權行動之組織架構、權力制衡、團隊紀律與財務透明制度，確保行動穩定且可受公評。
+      <p class="font-[Montserrat] text-xs font-bold uppercase tracking-[0.2em] text-red-500">
+        CHARTER &amp; REGULATIONS
       </p>
+      <h1 class="mt-2 text-3xl font-black text-white sm:text-5xl">組織章程與紀律規章</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-base text-gray-400">
+        明定捍衛全台學權行動之組織架構、雙社長制、社員代表會、社員大會、經費制度與紀律裁決程序。
+      </p>
+
+      <div class="mt-6 inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-950/50 px-4 py-1.5 text-xs font-semibold text-red-300">
+        <span class="h-2 w-2 rounded-full bg-red-500"></span>
+        2026 年 09 月 13 日會員大會訂定
+      </div>
+
+      <!-- Quick Jump Buttons -->
+      <div class="mt-7 flex flex-wrap justify-center gap-2.5">
+        <a
+          href="#charter"
+          class="rounded-xl bg-red-600 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-500"
+        >
+          社團章程（全五章 37 條）
+        </a>
+        <a
+          href="#discipline"
+          class="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold text-gray-200 transition hover:border-red-500/50 hover:text-white"
+        >
+          紀律規章（全三章 13 條）
+        </a>
+        <a
+          href="#forms"
+          class="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold text-gray-200 transition hover:border-red-500/50 hover:text-white"
+        >
+          附件表單說明（4 份）
+        </a>
+      </div>
     </div>
   </section>
 
   <section class="mx-auto max-w-6xl px-4 pt-12 sm:px-6 lg:px-8">
-    <div class="grid gap-10 lg:grid-cols-[260px_1fr]">
+    <div class="grid gap-10 lg:grid-cols-[270px_1fr]">
       <!-- Sticky Table of Contents -->
       <aside class="lg:sticky lg:top-24 lg:self-start">
-        <nav aria-label="章程目錄" class="glass-panel rounded-2xl p-5">
-          <h2 class="text-xs font-bold uppercase tracking-widest text-red-400">章節目錄</h2>
-          <ul class="mt-4 space-y-3 text-sm">
+        <nav aria-label="規章目錄" class="glass-panel max-h-[calc(100vh-8rem)] overflow-y-auto rounded-2xl p-5">
+          <h2 class="text-xs font-bold uppercase tracking-widest text-red-400">規章目錄</h2>
+          <div class="mt-4 space-y-5">
             {
-              BYLAWS_CHAPTERS.map((chapter) => (
-                <li>
+              BYLAW_DOCUMENTS.map((doc) => (
+                <div>
                   <a
-                    href={`#${chapter.id}`}
-                    class="block font-bold text-gray-200 transition hover:text-red-400"
+                    href={`#${doc.id}`}
+                    class="block text-sm font-extrabold text-white transition hover:text-red-400"
                   >
-                    {chapter.chapterLabel}　{chapter.title}
+                    {doc.title}
                   </a>
-                  <ul class="mt-1.5 space-y-1 border-l border-white/10 pl-3 text-xs text-gray-400">
-                    {chapter.sections.map((section) => (
+                  <ul class="mt-2 space-y-2 border-l border-white/10 pl-3 text-xs">
+                    {doc.chapters.map((chapter) => (
                       <li>
-                        <a href={`#${section.id}`} class="block py-0.5 transition hover:text-white">
-                          {section.title}
+                        <a
+                          href={`#${chapter.id}`}
+                          class="block font-semibold text-gray-300 transition hover:text-red-400"
+                        >
+                          {chapter.chapterLabel}　{chapter.title}
                         </a>
+                        {chapter.sections.some((s) => s.title) && (
+                          <ul class="mt-1 space-y-1 pl-2.5 text-[11px] text-gray-400">
+                            {chapter.sections
+                              .filter((s) => s.title)
+                              .map((section) => (
+                                <li>
+                                  <a href={`#${section.id}`} class="block py-0.5 transition hover:text-white">
+                                    {section.title}
+                                  </a>
+                                </li>
+                              ))}
+                          </ul>
+                        )}
                       </li>
                     ))}
                   </ul>
-                </li>
+                </div>
               ))
             }
-          </ul>
+            <div class="border-t border-white/10 pt-3">
+              <a
+                href="#forms"
+                class="block text-sm font-bold text-gray-200 transition hover:text-red-400"
+              >
+                附件表單說明
+              </a>
+            </div>
+          </div>
         </nav>
       </aside>
 
-      <!-- Bylaws Content -->
-      <div class="space-y-12">
+      <!-- Main Documents -->
+      <div class="space-y-16">
         {
-          BYLAWS_CHAPTERS.map((chapter) => (
-            <section id={chapter.id} class="scroll-mt-24 space-y-6">
-              <div class="border-b border-white/10 pb-4">
-                <span class="inline-block rounded-md bg-red-600/20 px-2.5 py-1 text-xs font-bold text-red-400">
-                  {chapter.chapterLabel}
-                </span>
-                <h2 class="mt-2 text-2xl font-extrabold text-white sm:text-3xl">{chapter.title}</h2>
-              </div>
+          BYLAW_DOCUMENTS.map((doc) => (
+            <section id={doc.id} class="scroll-mt-24 space-y-10">
+              <header class="rounded-2xl border border-red-500/25 bg-gradient-to-br from-red-950/35 to-[#101522] p-6 sm:p-8">
+                <p class="font-[Montserrat] text-xs font-bold uppercase tracking-widest text-red-400">
+                  {doc.subtitle}
+                </p>
+                <h2 class="mt-1.5 text-2xl font-black text-white sm:text-3xl">{doc.title}</h2>
+                <p class="mt-2 text-xs text-gray-400">{doc.adoptedNote}</p>
+              </header>
 
-              {chapter.sections.map((section) => (
-                <div id={section.id} class="scroll-mt-24 space-y-5">
-                  <h3 class="text-lg font-bold text-red-300">{section.title}</h3>
-
-                  <div class="space-y-4">
-                    {section.articles.map((article) => (
-                      <article id={article.id} class="glass-panel rounded-2xl p-6 sm:p-7">
-                        <h4 class="text-base font-bold text-white sm:text-lg">{article.title}</h4>
-
-                        {article.intro && (
-                          <p class="mt-3 text-sm leading-7 text-gray-300 sm:text-base">{article.intro}</p>
-                        )}
-
-                        {article.items && article.listType === 'decimal' && (
-                          <ol class="mt-4 list-decimal space-y-2.5 pl-5 text-sm leading-7 text-gray-300 sm:text-base">
-                            {article.items.map((item) => (
-                              <li>
-                                {item.label && <strong class="text-white">{item.label}</strong>}
-                                {item.text}
-                              </li>
-                            ))}
-                          </ol>
-                        )}
-
-                        {article.items && article.listType !== 'decimal' && (
-                          <ul class="mt-4 list-disc space-y-2.5 pl-5 text-sm leading-7 text-gray-300 sm:text-base">
-                            {article.items.map((item) => (
-                              <li>
-                                {item.label && <strong class="text-white">{item.label}</strong>}
-                                {item.text}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </article>
-                    ))}
+              {doc.chapters.map((chapter) => (
+                <div id={chapter.id} class="scroll-mt-24 space-y-6">
+                  <div class="flex items-baseline gap-3 border-b border-white/10 pb-3">
+                    <span class="rounded-md bg-red-600/20 px-2.5 py-1 text-xs font-bold text-red-400">
+                      {chapter.chapterLabel}
+                    </span>
+                    <h3 class="text-xl font-extrabold text-white sm:text-2xl">{chapter.title}</h3>
                   </div>
+
+                  {chapter.sections.map((section) => (
+                    <div id={section.id} class="scroll-mt-24 space-y-4">
+                      {section.title && (
+                        <h4 class="border-l-2 border-red-500 pl-3 text-base font-bold text-red-300">
+                          {section.title}
+                        </h4>
+                      )}
+
+                      <div class="space-y-3.5">
+                        {section.articles.map((article) => (
+                          <article id={article.id} class="glass-panel rounded-xl p-5 sm:p-6">
+                            <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-4">
+                              <span class="inline-block w-fit shrink-0 rounded-md border border-white/10 bg-white/5 px-2.5 py-0.5 font-[Montserrat] text-xs font-bold text-red-400 sm:mt-1 sm:min-w-[4.75rem] sm:text-center">
+                                {article.number}
+                              </span>
+
+                              <div class="min-w-0 flex-1 space-y-2.5 text-sm leading-7 text-gray-200 sm:text-base">
+                                {article.body && <p>{article.body}</p>}
+
+                                {article.items && (
+                                  <ul class="space-y-2">
+                                    {article.items.map((item) => (
+                                      <li class="flex items-start gap-2">
+                                        <span class="shrink-0 font-semibold text-gray-400">{item.marker}</span>
+                                        <span class="flex-1">
+                                          {item.deleted ? (
+                                            <>
+                                              <del class="text-gray-500">{item.text}</del>
+                                              {item.note && (
+                                                <span class="ml-1 text-xs font-medium text-amber-400/90">
+                                                  {item.note}
+                                                </span>
+                                              )}
+                                            </>
+                                          ) : (
+                                            item.text
+                                          )}
+                                        </span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                )}
+                              </div>
+                            </div>
+                          </article>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               ))}
+
+              <p class="text-right text-xs text-gray-500">（{doc.adoptedNote}）</p>
             </section>
           ))
         }
+
+        <!-- Annex Forms Summary -->
+        <section id="forms" class="scroll-mt-24 space-y-6 border-t border-white/10 pt-12">
+          <div>
+            <p class="font-[Montserrat] text-xs font-bold uppercase tracking-widest text-red-500">ANNEX FORMS</p>
+            <h2 class="mt-1.5 text-2xl font-black text-white">附件表單說明</h2>
+            <p class="mt-2 text-sm text-gray-400">
+              依本章程附錄所列之各項正式書面表單與填寫項目說明。
+            </p>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            {
+              BYLAW_FORMS.map((form) => (
+                <article class="glass-panel rounded-2xl p-6">
+                  <h3 class="text-lg font-bold text-white">{form.title}</h3>
+                  <p class="mt-2 text-xs leading-relaxed text-gray-400">{form.purpose}</p>
+                  <ul class="mt-4 list-disc space-y-1.5 pl-4 text-xs leading-6 text-gray-300">
+                    {form.fields.map((field) => (
+                      <li>{field}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))
+            }
+          </div>
+        </section>
       </div>
     </div>
   </section>

@@ -10,9 +10,9 @@ export interface LinkItem {
 
 export const OFFICIAL_LINKS: LinkItem[] = [
   {
-    title: '組織章程與共識大會',
-    handle: 'ADSR Bylaws',
-    description: '查閱 ADSR 組織架構、權責分工、團隊規範與財務透明制度。',
+    title: '組織章程與紀律規章',
+    handle: 'ADSR Charter & Rules',
+    description: '查閱 2026 年 9 月 13 日會員大會訂定之社團章程、紀律規章與相關表單說明。',
     href: '/bylaws/',
     external: false,
     accent: '#dc2626',
