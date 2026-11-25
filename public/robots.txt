@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ivantw829.github.io/adsr-tw/sitemap-index.xml
+Sitemap: https://adsr.asdtw.org/sitemap-index.xml

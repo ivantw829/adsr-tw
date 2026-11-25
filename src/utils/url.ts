@@ -32,7 +32,7 @@ export function isActivePath(currentPathname: string, targetPath: string): boole
  * 產生完整絕對網址（供 OG / Canonical / JSON-LD 使用）
  */
 export function toAbsoluteUrl(path: string, site?: URL): string {
-  const baseOrigin = site ? site.origin : 'https://ivantw829.github.io';
+  const baseOrigin = site ? site.origin : 'https://adsr.asdtw.org';
   if (/^https?:/.test(path)) return path;
   return `${baseOrigin}${withBase(path)}`;
 }

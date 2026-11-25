@@ -2,7 +2,7 @@
 
 **捍衛全台學權行動 ADSR**（Action to Defend the Student Rights in Taiwan）官方靜態網站，採用 **Astro + Tailwind CSS v4** 建置，可透過 GitHub Actions 自動部署至 GitHub Pages。
 
-線上網址：<https://ivantw829.github.io/adsr-tw/>
+線上網址：<https://adsr.asdtw.org/>
 
 ## 專案特色
 
@@ -28,7 +28,7 @@ npm run check
 # 建置靜態網站（輸出至 dist/）
 npm run build
 
-# 預覽建置結果（http://localhost:4321/adsr-tw/）
+# 預覽建置結果（http://localhost:4321/）
 npm run preview
 ```
 
@@ -59,16 +59,13 @@ author: "捍衛全台學權行動 ADSR"
 
 1. 前往 GitHub 儲存庫的 **Settings → Pages → Build and deployment → Source**，選擇 **GitHub Actions**。
 2. 推送程式碼至 `main` 分支，GitHub Actions 會自動執行部署。
-3. 若日後想切換回自訂網域（例如 `https://adsr.tw`）：
-   - 在 `public/` 新增 `CNAME` 檔案寫入 `adsr.tw`
-   - 修改 `astro.config.mjs` 的 `site: 'https://adsr.tw'` 並移除 `base: '/adsr-tw'`
-   - 更新 `public/robots.txt` 的 Sitemap 網址即可，所有站內連結會自動適配。
+3. 自訂網域（`adsr.asdtw.org`）已透過 `public/CNAME`、`astro.config.mjs`（`site: 'https://adsr.asdtw.org'`）與 `public/robots.txt` 完成設定；請在 DNS 新增指向 GitHub Pages 的 `CNAME` 紀錄（例如指向 `ivantw829.github.io`）並於 GitHub Pages 設定中啟用 **Enforce HTTPS**。
 
 ## 專案結構
 
 ```text
 .github/workflows/deploy.yml   GitHub Pages 自動部署工作流
-public/                        靜態資源（favicon、logo、robots.txt、.nojekyll）
+public/                        靜態資源（CNAME、favicon、logo、robots.txt、.nojekyll）
 src/
   components/                  Navbar、Footer、HeroCanvas
   content/papers/              倡議文章 Markdown（Content Collections）

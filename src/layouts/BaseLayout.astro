@@ -20,7 +20,7 @@ const {
   jsonLd,
 } = Astro.props;
 
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://ivantw829.github.io').toString();
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://adsr.asdtw.org').toString();
 const resolvedOgImage = toAbsoluteUrl(ogImage, Astro.site);
 
 const defaultJsonLd = {

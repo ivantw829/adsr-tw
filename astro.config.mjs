@@ -3,8 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://ivantw829.github.io',
-  base: '/adsr-tw',
+  site: 'https://adsr.asdtw.org',
   output: 'static',
   integrations: [sitemap()],
   vite: {
