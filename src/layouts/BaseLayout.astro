@@ -1,0 +1,104 @@
+---
+import '@/styles/global.css';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import { withBase, toAbsoluteUrl } from '@/utils/url';
+
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  jsonLd?: Record<string, unknown>;
+}
+
+const {
+  title,
+  description = 'ADSR 捍衛全台學權行動，致力於學生權益、教育改革、反對威權，推動台灣學生運動。全台學生團結反抗，守護自由與多元民主。',
+  ogImage = '/assets/logo360.png',
+  ogType = 'website',
+  jsonLd,
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://ivantw829.github.io').toString();
+const resolvedOgImage = toAbsoluteUrl(ogImage, Astro.site);
+
+const defaultJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: '捍衛全台學權行動 ADSR',
+  alternateName: 'Action to Defend the Student Rights in Taiwan',
+  url: toAbsoluteUrl('/', Astro.site),
+  logo: toAbsoluteUrl('/assets/logo360.png', Astro.site),
+  sameAs: [
+    'https://www.facebook.com/profile.php?id=61576959986789',
+    'https://www.instagram.com/adsr_taiwan',
+    'https://www.threads.net/@adsr_taiwan',
+  ],
+  description: 'ADSR 捍衛全台學權行動，致力於學生權益、教育改革、反對威權，推動台灣學生運動。',
+};
+
+const structuredData = jsonLd ?? defaultJsonLd;
+---
+
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="學生權益, 學權, 教育改革, 學生運動, 台灣, ADSR, 捍衛全台學權行動, 學生組織, 民主, 反威權, 學生自主"
+    />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:image" content={resolvedOgImage} />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:site_name" content="捍衛全台學權行動 ADSR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedOgImage} />
+
+    <!-- Icons -->
+    <link rel="icon" href={withBase('/assets/logo.ico')} />
+    <link rel="apple-touch-icon" href={withBase('/assets/logo360.png')} />
+
+    <!-- Google Fonts (動態子集，取代 36MB 本地 TTF) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </head>
+
+  <body class="min-h-screen flex flex-col bg-[#090b10] text-gray-100 antialiased">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-red-600 focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-white"
+    >
+      跳至主要內容
+    </a>
+
+    <Navbar />
+
+    <main id="main-content" class="flex-1 pt-16">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

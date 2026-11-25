@@ -1,0 +1,82 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { OFFICIAL_LINKS } from '@/data/links';
+import { withBase } from '@/utils/url';
+---
+
+<BaseLayout
+  title="相關連結｜捍衛全台學權行動 ADSR"
+  description="ADSR 捍衛全台學權行動官方連結中心 — 組織章程、Instagram、Threads 與 Facebook，一起守護學生權益！"
+>
+  <section class="relative overflow-hidden bg-grid-pattern py-20">
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute top-1/2 left-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-700/15 blur-[120px]"
+    >
+    </div>
+
+    <div class="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <img
+          src={withBase('/assets/logo.png')}
+          alt="ADSR Logo"
+          width="76"
+          height="76"
+          class="mx-auto mb-5 h-19 w-19 drop-shadow-[0_0_20px_rgba(220,38,38,0.45)]"
+        />
+        <p class="font-[Montserrat] text-xs font-bold uppercase tracking-[0.2em] text-red-500">OFFICIAL CHANNELS</p>
+        <h1 class="mt-2 text-3xl font-black text-white sm:text-5xl">相關連結</h1>
+        <p class="mx-auto mt-4 max-w-xl text-base text-gray-400">
+          透過以下官方管道追蹤 ADSR 最新倡議、行動快訊，或深入閱讀我們的組織章程。
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-5 sm:grid-cols-2">
+        {
+          OFFICIAL_LINKS.map((item) => {
+            const resolvedHref = item.external ? item.href : withBase(item.href);
+            return (
+              <a
+                href={resolvedHref}
+                target={item.external ? '_blank' : undefined}
+                rel={item.external ? 'noopener noreferrer' : undefined}
+                class="glass-panel glass-panel-hover group flex flex-col justify-between rounded-2xl p-6"
+                style={`border-top: 3px solid ${item.accent};`}
+              >
+                <div>
+                  <div class="flex items-center justify-between gap-3">
+                    <span class="font-[Montserrat] text-xs font-bold tracking-wider text-gray-400">
+                      {item.handle}
+                    </span>
+                    <span class="inline-flex items-center gap-1 rounded-full bg-white/5 px-2.5 py-0.5 text-[11px] font-medium text-gray-300">
+                      {item.external ? '外部連結' : '站內頁面'}
+                    </span>
+                  </div>
+
+                  <h2 class="mt-3 text-xl font-bold text-white transition group-hover:text-red-400">
+                    {item.title}
+                  </h2>
+
+                  <p class="mt-2 text-sm leading-relaxed text-gray-400">{item.description}</p>
+                </div>
+
+                <div class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-red-400">
+                  <span>{item.external ? '前往頁面' : '閱讀內容'}</span>
+                  <svg
+                    class="h-4 w-4 transition-transform group-hover:translate-x-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </div>
+              </a>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

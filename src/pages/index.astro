@@ -1,0 +1,285 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import HeroCanvas from '@/components/HeroCanvas.astro';
+import eventsData from '@/data/events.json';
+import { withBase } from '@/utils/url';
+import {
+  getCategoryColor,
+  normalizeCategory,
+  formatDateISO,
+  estimateReadingMinutes,
+} from '@/utils/categories';
+
+const allPapers = await getCollection('papers');
+const latestPapers = allPapers
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const latestEvents = eventsData.slice(0, 3);
+
+const pillars = [
+  {
+    index: '01',
+    title: '學生權益，不容退讓',
+    tag: '#捍衛全台學權行動',
+    body: '我們是捍衛全台學權行動（Action to Defend the Student Rights in Taiwan, ADSR），由來自各地學校的學生組成。我們以行動主義為路徑，以批判社會學與進步教育理念為基礎，致力於打破威權、守護學生權益，建立真正屬於學生的多元民主。前身為「捍衛板中學權行動」，我們從一校之爭出發，如今，目標是全台學權的徹底翻轉。',
+  },
+  {
+    index: '02',
+    title: '面對威權，我們選擇團結反抗',
+    tag: '#和平示威 #靜坐抗議',
+    body: '早在五月得知下學期新任劉淑芬校長可能使學生權益面臨潛在威脅，我們便組織板中學生共同規劃行動，於校慶當天懸掛布條進行和平示威，並召開由板中學生自主決定行動走向的學生大會。後續面對教育部推動手機禁令草案，我們團結全台學生於教育部前召開記者會、靜坐抗議，並在學生座談會上積極發聲，批評教育部敷衍學生的態度。',
+  },
+  {
+    index: '03',
+    title: '未來的路，我們已經啟程',
+    tag: '#學生自主 #多元民主',
+    body: '一直以來，我們始終堅信學生不該被教育制度馴化為服從者，而是能夠自主團結、理性辯論、積極行動的公民。我們鑽研政策、數據與法規，只為捍衛屬於學生的權利。ADSR 不會止步於一次抗爭或一場記者會，我們持續強化論述基礎與行動能量，拓展屬於學生群體的民主之路。',
+  },
+];
+---
+
+<BaseLayout title="捍衛全台學權行動 ADSR｜學生權益、教育改革、台灣學生運動">
+  <!-- Hero Section -->
+  <section class="relative flex min-h-[88vh] items-center justify-center overflow-hidden bg-grid-pattern">
+    <!-- Background Radial Glow -->
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute top-1/2 left-1/2 h-[540px] w-[540px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-700/15 blur-[130px]"
+    >
+    </div>
+
+    <HeroCanvas />
+
+    <div class="relative z-10 mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
+      <div class="animate-fade-up">
+        <img
+          src={withBase('/assets/logo.png')}
+          alt="捍衛全台學權行動 ADSR Logo"
+          width="112"
+          height="112"
+          class="mx-auto mb-7 h-28 w-28 drop-shadow-[0_0_28px_rgba(220,38,38,0.45)] transition-transform duration-500 hover:scale-105"
+        />
+
+        <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-950/50 px-4 py-1.5 text-xs font-semibold tracking-wider text-red-300">
+          <span class="h-2 w-2 rounded-full bg-red-500"></span>
+          ACTION TO DEFEND THE STUDENT RIGHTS IN TAIWAN
+        </div>
+
+        <h1 class="text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
+          捍衛全台學權行動
+          <span class="mt-1 block font-[Montserrat] text-red-500 sm:inline sm:ml-2">ADSR</span>
+        </h1>
+
+        <p class="mx-auto mt-6 max-w-2xl font-[Noto_Serif_TC] text-xl font-semibold leading-relaxed text-gray-200 sm:text-2xl">
+          全台學生，絕不容許自由倒退！<br />
+          團結反抗，寸步不讓！
+        </p>
+
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <a
+            href={withBase('/papers/')}
+            class="inline-flex items-center gap-2 rounded-xl bg-red-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-red-900/40 transition hover:-translate-y-0.5 hover:bg-red-500"
+          >
+            閱讀倡議文章
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+          <a
+            href={withBase('/events/')}
+            class="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-gray-100 backdrop-blur transition hover:-translate-y-0.5 hover:border-red-500/50 hover:bg-white/10"
+          >
+            查看行動紀實
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Cue -->
+    <a
+      href="#about"
+      aria-label="捲動至關於我們"
+      class="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 rounded-full border border-white/10 bg-white/5 p-2.5 text-gray-400 transition hover:border-red-500/50 hover:text-red-400"
+    >
+      <svg class="h-4 w-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+      </svg>
+    </a>
+  </section>
+
+  <!-- About / Manifesto Section -->
+  <section id="about" class="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="font-[Montserrat] text-xs font-bold uppercase tracking-[0.2em] text-red-500">ABOUT ADSR</p>
+      <h2 class="mt-2 text-3xl font-extrabold text-white sm:text-4xl">行動未止發聲未息，重整隊伍蓄勢待發</h2>
+      <p class="mt-5 text-base leading-relaxed text-gray-300">
+        自座談會落幕、手機管制草案結束意見徵詢進入修訂程序之後，教育部並未如承諾召開更多聆聽學生意見的公聽會。我們總結抗爭經驗、完善組織規劃，並持續關注各校學權現狀——ADSR 不只是為反對手機禁令而存在，而是致力於讓台灣校園邁向真正多元民主的學生倡議組織。
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-6 md:grid-cols-3">
+      {
+        pillars.map((pillar) => (
+          <article class="glass-panel glass-panel-hover flex flex-col rounded-2xl p-7">
+            <div class="flex items-center justify-between">
+              <span class="font-[Montserrat] text-2xl font-extrabold text-red-500/80">{pillar.index}</span>
+              <span class="rounded-full border border-red-500/25 bg-red-950/50 px-3 py-1 text-xs font-medium text-red-300">
+                {pillar.tag}
+              </span>
+            </div>
+            <h3 class="mt-5 text-xl font-bold text-white">{pillar.title}</h3>
+            <p class="mt-3 flex-1 text-sm leading-7 text-gray-300">{pillar.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Latest Papers Preview -->
+  <section class="border-y border-white/10 bg-[#0c1018]/70 py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <p class="font-[Montserrat] text-xs font-bold uppercase tracking-[0.2em] text-red-500">LATEST PAPERS</p>
+          <h2 class="mt-2 text-3xl font-extrabold text-white">最新倡議文章</h2>
+        </div>
+        <a
+          href={withBase('/papers/')}
+          class="inline-flex items-center gap-1.5 text-sm font-semibold text-red-400 transition hover:text-red-300"
+        >
+          查看全部文章
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        {
+          latestPapers.map((paper) => {
+            const cat = normalizeCategory(paper.data.category);
+            const color = getCategoryColor(cat);
+            const readMins = estimateReadingMinutes(paper.body ?? '');
+            return (
+              <a
+                href={withBase(`/papers/${paper.id}/`)}
+                class="glass-panel glass-panel-hover group flex flex-col overflow-hidden rounded-2xl"
+              >
+                {paper.data.thumbnail ? (
+                  <div class="relative aspect-[16/10] w-full overflow-hidden bg-gray-900">
+                    <img
+                      src={paper.data.thumbnail}
+                      alt={paper.data.title}
+                      loading="lazy"
+                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <span
+                      class="absolute top-3 left-3 rounded-full px-3 py-1 text-xs font-bold text-white shadow"
+                      style={`background-color: ${color};`}
+                    >
+                      #{cat}
+                    </span>
+                  </div>
+                ) : (
+                  <div class="flex aspect-[16/10] items-center justify-center bg-gradient-to-br from-red-950/60 to-gray-900">
+                    <span class="font-[Montserrat] text-2xl font-black text-red-500/40">ADSR</span>
+                  </div>
+                )}
+
+                <div class="flex flex-1 flex-col p-6">
+                  <div class="flex items-center gap-3 text-xs text-gray-400">
+                    <time datetime={formatDateISO(paper.data.date)}>{formatDateISO(paper.data.date)}</time>
+                    <span>·</span>
+                    <span>約 {readMins} 分鐘閱讀</span>
+                  </div>
+                  <h3 class="mt-3 line-clamp-2 text-lg font-bold text-white transition group-hover:text-red-400">
+                    {paper.data.title}
+                  </h3>
+                  <p class="mt-2.5 line-clamp-3 flex-1 text-sm leading-relaxed text-gray-400">
+                    {paper.data.description}
+                  </p>
+                  <div class="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-red-400">
+                    閱讀全文
+                    <svg
+                      class="h-4 w-4 transition-transform group-hover:translate-x-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </div>
+                </div>
+              </a>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Events Preview -->
+  <section class="mx-auto max-w-6xl px-4 pt-20 sm:px-6 lg:px-8">
+    <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+      <div>
+        <p class="font-[Montserrat] text-xs font-bold uppercase tracking-[0.2em] text-red-500">ACTION TIMELINE</p>
+        <h2 class="mt-2 text-3xl font-extrabold text-white">近期行動紀實</h2>
+      </div>
+      <a
+        href={withBase('/events/')}
+        class="inline-flex items-center gap-1.5 text-sm font-semibold text-red-400 transition hover:text-red-300"
+      >
+        查看完整時間軸
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="mt-10 grid gap-5 md:grid-cols-3">
+      {
+        latestEvents.map((ev) => {
+          const color = getCategoryColor(ev.category);
+          return (
+            <article
+              class="glass-panel glass-panel-hover flex flex-col rounded-2xl p-6"
+              style={`border-top: 3px solid ${color};`}
+            >
+              <div class="flex items-center justify-between gap-2 text-xs">
+                <time datetime={ev.date} class="font-[Montserrat] font-semibold text-gray-400">
+                  {ev.date.replace(/-/g, '/')}
+                </time>
+                <span
+                  class="rounded-full px-2.5 py-0.5 font-semibold text-white"
+                  style={`background-color: ${color}26; color: ${color}; border: 1px solid ${color}55;`}
+                >
+                  #{ev.category}
+                </span>
+              </div>
+              <h3 class="mt-3 text-lg font-bold text-white">{ev.title}</h3>
+              <p class="mt-2.5 flex-1 text-sm leading-relaxed text-gray-400">{ev.summary}</p>
+              <a
+                href={ev.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-red-400 transition hover:text-red-300"
+              >
+                查看更多
+                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              </a>
+            </article>
+          );
+        })
+      }
+    </div>
+  </section>
+</BaseLayout>

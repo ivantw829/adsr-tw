@@ -1,0 +1,30 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { withBase } from '@/utils/url';
+---
+
+<BaseLayout title="找不到頁面 (404)｜捍衛全台學權行動 ADSR">
+  <section class="flex min-h-[70vh] items-center justify-center px-4 py-20 text-center">
+    <div class="max-w-md">
+      <p class="font-[Montserrat] text-7xl font-black text-red-600 sm:text-8xl">404</p>
+      <h1 class="mt-4 text-2xl font-bold text-white sm:text-3xl">找不到這個頁面</h1>
+      <p class="mt-3 text-sm leading-relaxed text-gray-400">
+        你造訪的網址可能已經移動、更名或不存在。請返回首頁或前往倡議文章瀏覽最新內容。
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a
+          href={withBase('/')}
+          class="rounded-xl bg-red-600 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-red-500"
+        >
+          返回首頁
+        </a>
+        <a
+          href={withBase('/papers/')}
+          class="rounded-xl border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-semibold text-gray-200 transition hover:border-red-500/50 hover:text-white"
+        >
+          瀏覽倡議文章
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

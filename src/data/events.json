@@ -1,0 +1,42 @@
+[
+  {
+    "id": "website-launch",
+    "title": "adsr.tw 網站上線",
+    "summary": "ADSR 網站正式上線，提供最新活動資訊、政策倡議與學生權益相關資源，歡迎大家前往瀏覽與分享。",
+    "date": "2025-06-28",
+    "category": "活動快報",
+    "link": "https://ivantw829.github.io/adsr-tw/"
+  },
+  {
+    "id": "moe-forum-0601",
+    "title": "教育部 6 月 1 日全國學生座談會",
+    "summary": "ADSR 參與教育部全國學生座談會，表達反對手機管制政策，並呼籲退回草案、舉辦更多公聽會及落實學生參與，惟教育部未正面回應，將持續行動爭取改變。",
+    "date": "2025-06-01",
+    "category": "手機管制",
+    "link": "https://www.instagram.com/p/DKXEddAyZUl"
+  },
+  {
+    "id": "sit-in-0524",
+    "title": "524 解鎖學權",
+    "summary": "近 30 位學生在教育部前風雨無阻靜坐三小時，抗議教育部荒謬草案，強調學生將持續監督、發聲，捍衛參與政策與自身權益。",
+    "date": "2025-05-24",
+    "category": "手機管制",
+    "link": "https://www.instagram.com/p/DKCivEdyO_C"
+  },
+  {
+    "id": "press-conference-0518",
+    "title": "518 學生要民主、草案要退回",
+    "summary": "ADSR 與全台高中生於教育部前舉行抗議記者會，要求撤回手機使用草案、補全民主程序並建立長期檢討機制，以捍衛學生權利與參與。",
+    "date": "2025-05-18",
+    "category": "手機管制",
+    "link": "https://www.instagram.com/p/DJyO_-lS8JR"
+  },
+  {
+    "id": "founding-0510",
+    "title": "ADSR 創立行動",
+    "summary": "「捍衛板中學權行動」發起和平示威，呼籲新任校長承諾不打壓學生權益，捍衛板中自由校風與學生自治，避免重演北科附工威權治理悲劇。",
+    "date": "2025-05-10",
+    "category": "活動快報",
+    "link": "https://www.instagram.com/p/DJdZAHkSKBM"
+  }
+]

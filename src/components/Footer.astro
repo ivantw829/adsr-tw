@@ -1,0 +1,85 @@
+---
+import { withBase } from '@/utils/url';
+---
+
+<footer class="mt-24 border-t border-white/10 bg-[#06080c]" aria-label="頁尾">
+  <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="grid gap-10 md:grid-cols-3">
+      <!-- Brand Summary -->
+      <div class="space-y-3">
+        <a href={withBase('/')} class="inline-flex items-center gap-2.5">
+          <img
+            src={withBase('/assets/logo.ico')}
+            alt="ADSR 標誌"
+            width="28"
+            height="28"
+            class="h-7 w-7 rounded"
+          />
+          <span class="font-[Montserrat] text-lg font-extrabold tracking-widest text-red-500">ADSR</span>
+          <span class="text-sm font-semibold text-gray-200">捍衛全台學權行動</span>
+        </a>
+        <p class="text-sm leading-relaxed text-gray-400">
+          Action to Defend the Student Rights in Taiwan。由全台各地學生組成，以行動主義、批判社會學與進步教育理念守護學生權益與多元民主。
+        </p>
+      </div>
+
+      <!-- Site Navigation -->
+      <div>
+        <h2 class="text-xs font-bold uppercase tracking-widest text-gray-400">網站導覽</h2>
+        <ul class="mt-4 grid grid-cols-2 gap-2.5 text-sm">
+          <li>
+            <a href={withBase('/')} class="text-gray-300 transition hover:text-red-400">首頁</a>
+          </li>
+          <li>
+            <a href={withBase('/events/')} class="text-gray-300 transition hover:text-red-400">行動紀實</a>
+          </li>
+          <li>
+            <a href={withBase('/papers/')} class="text-gray-300 transition hover:text-red-400">倡議文章</a>
+          </li>
+          <li>
+            <a href={withBase('/bylaws/')} class="text-gray-300 transition hover:text-red-400">組織章程</a>
+          </li>
+          <li>
+            <a href={withBase('/links/')} class="text-gray-300 transition hover:text-red-400">相關連結</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Social Links -->
+      <div>
+        <h2 class="text-xs font-bold uppercase tracking-widest text-gray-400">追蹤我們</h2>
+        <div class="mt-4 flex flex-wrap gap-2.5">
+          <a
+            href="https://www.instagram.com/adsr_taiwan"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3.5 py-2 text-sm text-gray-300 transition hover:border-red-500/50 hover:bg-red-600/10 hover:text-white"
+          >
+            Instagram
+          </a>
+          <a
+            href="https://www.threads.net/@adsr_taiwan"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3.5 py-2 text-sm text-gray-300 transition hover:border-red-500/50 hover:bg-red-600/10 hover:text-white"
+          >
+            Threads
+          </a>
+          <a
+            href="https://www.facebook.com/profile.php?id=61576959986789"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3.5 py-2 text-sm text-gray-300 transition hover:border-red-500/50 hover:bg-red-600/10 hover:text-white"
+          >
+            Facebook
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-gray-500 sm:flex-row">
+      <p>© 2025–2026 捍衛全台學權行動 ADSR. 保留所有權利。</p>
+      <p>全台學生，絕不容許自由倒退！</p>
+    </div>
+  </div>
+</footer>
