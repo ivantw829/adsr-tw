@@ -7,16 +7,20 @@ export interface CategoryStyle {
 }
 
 export const CATEGORY_COLORS: Record<string, string> = {
-  各校行動: '#9333ea',
-  升學主義: '#ea580c',
-  心理健康: '#528c68',
-  校園霸凌: '#14b8a6',
-  網路性犯罪: '#a855f7',
-  性少數困境: '#ec4899',
-  倡議行動: '#dc2626',
-  時事分析: '#eab308',
-  活動快報: '#22c55e',
-  手機管制: '#3b82f6',
+  // 行動紀實
+  遊行參與: '#ec4899',
+  '抗議／座談': '#dc2626',
+  組織動態: '#22c55e',
+
+  // 倡議文章
+  政策評論: '#3b82f6',
+  校園安全: '#14b8a6',
+  升學制度: '#ea580c',
+  組織聲明: '#a855f7',
+
+  // 預留議題分類
+  性別平權: '#f43f5e',
+  心理健康: '#10b981',
 };
 
 export function normalizeCategory(raw: string): string {
